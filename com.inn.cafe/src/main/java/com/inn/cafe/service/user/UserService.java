@@ -1,2 +1,9 @@
-package com.inn.cafe.service.user;public interface UserService {
+package com.inn.cafe.service.user;
+
+import org.springframework.http.ResponseEntity;
+
+import java.util.Map;
+
+public interface UserService {
+    ResponseEntity<String> signUp(Map<String, String> requestMap);
 }
