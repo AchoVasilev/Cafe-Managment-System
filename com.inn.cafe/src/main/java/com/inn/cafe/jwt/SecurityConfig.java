@@ -1,5 +1,6 @@
 package com.inn.cafe.jwt;
 
+import com.inn.cafe.pojo.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,6 +11,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
 @Configuration
@@ -17,9 +19,11 @@ import org.springframework.web.cors.CorsConfiguration;
 public class SecurityConfig {
 
     private final CustomerUserDetailsService customerUserDetailsService;
+    private final JwtFilter jwtFilter;
 
-    public SecurityConfig(CustomerUserDetailsService customerUserDetailsService) {
+    public SecurityConfig(CustomerUserDetailsService customerUserDetailsService, JwtFilter jwtFilter) {
         this.customerUserDetailsService = customerUserDetailsService;
+        this.jwtFilter = jwtFilter;
     }
 
     @Bean
@@ -54,7 +58,9 @@ public class SecurityConfig {
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().build();
+                .and()
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
 
     }
 }
