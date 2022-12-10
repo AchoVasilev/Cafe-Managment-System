@@ -11,5 +11,8 @@ import java.util.Map;
 public interface UserController {
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signUp(@RequestBody(required = true)Map<String, String> requestMap);
+    ResponseEntity<String> signUp(@RequestBody Map<String, String> requestMap);
+
+    @PostMapping("/login")
+    ResponseEntity<String> login(@RequestBody Map<String, String> requestMap);
 }

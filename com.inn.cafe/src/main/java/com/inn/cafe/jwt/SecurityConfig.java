@@ -50,10 +50,8 @@ public class SecurityConfig {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests((auth) ->
-                        auth.anyRequest().authenticated()
-                                .requestMatchers("/user/login", "/user/signup", "/user/forgottenPassword")
-                                .anonymous()
-                                .and())
+                        auth.requestMatchers("/user/login", "/user/signup", "/user/forgottenPassword").permitAll()
+                                .anyRequest().authenticated())
                 .exceptionHandling()
                 .and()
                 .sessionManagement()

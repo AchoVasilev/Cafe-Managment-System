@@ -36,6 +36,11 @@ public class UserServiceImpl implements UserService {
         return CafeUtils.getResponseEntity(CafeConstants.INVALID_DATA, HttpStatus.BAD_REQUEST);
     }
 
+    @Override
+    public ResponseEntity<String> login(Map<String, String> requestMap) {
+        return null;
+    }
+
     private boolean validateSignUpMap(Map<String, String> requestMap) {
         return requestMap.containsKey("name")
                 && requestMap.containsKey("contactNumber")
